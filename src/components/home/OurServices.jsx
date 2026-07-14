@@ -1,6 +1,6 @@
-import homeHealth from "@/assets/home-health.png";
-import palliativeCare from "@/assets/palliative-care.png";
-import hospiceCare from "@/assets/hospice-care.png";
+import homeHealth from "@/assets/services/home-health.png";
+import palliativeCare from "@/assets/services/palliative-care.png";
+import hospiceCare from "@/assets/services/hospice-care.png";
 
 const OurServices = () => {
   const services = [
