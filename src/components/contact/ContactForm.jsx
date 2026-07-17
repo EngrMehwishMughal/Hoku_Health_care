@@ -1,22 +1,31 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const initialFormData = {
-  name: "",
+const initialForm = {
+  firstName: "",
+  secondName: "",
   email: "",
+  password: "",
   phone: "",
+  service: "",
   message: "",
 };
 
-const ContactForm = ({ compact = false }) => {
-  const [formData, setFormData] = useState(initialFormData);
+const services = [
+  "Home Health",
+  "Palliative Care",
+  "Hospice Care",
+];
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState(initialForm);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormData((previous) => ({
-      ...previous,
+    setFormData((previousData) => ({
+      ...previousData,
       [name]: value,
     }));
   };
@@ -24,140 +33,166 @@ const ContactForm = ({ compact = false }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { name, email, phone, message } = formData;
-
-    if (!name.trim() || !email.trim() || !phone.trim() || !message.trim()) {
-      toast.warning("Please fill in all required fields.");
+    if (
+      !formData.firstName.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim() ||
+      !formData.service ||
+      !formData.message.trim()
+    ) {
+      toast.error("Please complete all required fields.");
       return;
     }
 
     try {
       setLoading(true);
 
-      // Replace this temporary delay with your API request later.
-      await new Promise((resolve) => setTimeout(resolve, 700));
+      // Replace this with the contact API later.
+      // await submitContactForm(formData);
 
-      toast.success("Your message has been sent successfully.");
-      setFormData(initialFormData);
+      console.log("Contact form:", formData);
+
+      toast.success("Your message has been submitted.");
+      setFormData(initialForm);
     } catch (error) {
-      console.error("Contact form error:", error);
-      toast.error("Unable to send your message. Please try again.");
+      toast.error(
+        error?.response?.data?.message ||
+          "Unable to submit your message."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const inputClass =
-    "w-full rounded-lg border border-[var(--border)] bg-white px-4 py-3 text-sm text-[var(--heading)] outline-none transition-all duration-300 placeholder:text-[var(--muted)] focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary-light)]";
-
   return (
     <form
       onSubmit={handleSubmit}
-      className={`rounded-3xl bg-white shadow-[0_15px_45px_rgba(0,0,0,0.08)] ${
-        compact ? "p-6 sm:p-8" : "p-6 sm:p-8 lg:p-10"
-      }`}
+      className="w-full max-w-[510px]"
     >
-      <div className="mb-7">
-        <span className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--primary)]">
-          Send a Message
-        </span>
-
-        <h2 className="mt-3 text-3xl font-bold text-[var(--heading)] sm:text-4xl">
-          Get in Touch with Our Team
-        </h2>
-
-        <p className="mt-3 leading-7 text-[var(--body)]">
-          Complete the form and our healthcare team will contact you as soon as
-          possible.
+      <div>
+        <p className="text-xl font-medium uppercase tracking-wide text-[#B7CF35]">
+          HOKU
         </p>
+
+        <h2 className="mt-1 text-3xl font-extrabold uppercase leading-none text-[#1E63C6] sm:text-4xl">
+          Get In Touch
+        </h2>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label
-            htmlFor="name"
-            className="mb-2 block text-sm font-semibold text-[var(--heading)]"
-          >
-            Full Name
-          </label>
+      <div className="mt-7 grid gap-x-7 gap-y-5 sm:grid-cols-2">
+        <UnderlineInput
+          label="First Name"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+        />
 
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={formData.name}
+        <UnderlineInput
+          label="Second Name"
+          name="secondName"
+          value={formData.secondName}
+          onChange={handleChange}
+        />
+
+        <UnderlineInput
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+
+        <UnderlineInput
+          label="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+
+        <UnderlineInput
+          label="Phone"
+          name="phone"
+          type="tel"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+        />
+
+        <label className="group block">
+          <span className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-[#1B1B1F]">
+            Service
+          </span>
+
+          <select
+            name="service"
+            value={formData.service}
             onChange={handleChange}
-            placeholder="Enter your full name"
-            className={inputClass}
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="email"
-            className="mb-2 block text-sm font-semibold text-[var(--heading)]"
+            required
+            className="w-full border-0 border-b border-[#4B5563] bg-transparent pb-2 text-sm text-[#1B1B1F] outline-none transition focus:border-[#1E63C6]"
           >
-            Email Address
-          </label>
+            <option value="">Select</option>
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            className={inputClass}
-          />
-        </div>
+            {services.map((service) => (
+              <option key={service} value={service}>
+                {service}
+              </option>
+            ))}
+          </select>
+        </label>
 
-        <div className="sm:col-span-2">
-          <label
-            htmlFor="phone"
-            className="mb-2 block text-sm font-semibold text-[var(--heading)]"
-          >
-            Phone Number
-          </label>
-
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Enter your phone number"
-            className={inputClass}
-          />
-        </div>
-
-        <div className="sm:col-span-2">
-          <label
-            htmlFor="message"
-            className="mb-2 block text-sm font-semibold text-[var(--heading)]"
-          >
+        <label className="sm:col-span-2">
+          <span className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-[#1B1B1F]">
             Message
-          </label>
+          </span>
 
           <textarea
-            id="message"
             name="message"
-            rows="5"
             value={formData.message}
             onChange={handleChange}
-            placeholder="Tell us how we can help"
-            className={`${inputClass} resize-none`}
+            required
+            rows={2}
+            className="min-h-[48px] w-full resize-none border-0 border-b border-[#4B5563] bg-transparent pb-2 text-sm text-[#1B1B1F] outline-none transition focus:border-[#1E63C6]"
           />
-        </div>
+        </label>
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-[var(--primary)] px-7 py-3.5 font-semibold text-white transition-all duration-300 hover:bg-[var(--primary-hover)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="mt-7 inline-flex min-h-11 items-center justify-center rounded-lg bg-[#1E63C6] px-6 text-xs font-bold uppercase tracking-wide text-white shadow-[0_5px_12px_rgba(30,99,198,0.35)] transition hover:bg-[#164FA4] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {loading ? "Sending..." : "Send Message"}
+        {loading ? "Submitting..." : "Submit Now"}
       </button>
     </form>
+  );
+};
+
+const UnderlineInput = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  required = false,
+}) => {
+  return (
+    <label className="group block">
+      <span className="mb-1 block text-[11px] font-medium uppercase tracking-wide text-[#1B1B1F]">
+        {label}
+      </span>
+
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full border-0 border-b border-[#4B5563] bg-transparent pb-2 text-sm text-[#1B1B1F] outline-none transition focus:border-[#1E63C6]"
+      />
+    </label>
   );
 };
 

@@ -35,13 +35,13 @@ const Navbar = () => {
 
   return (
     <header className="relative z-50 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.05)]">
-      <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         {/* Logo positioned across both desktop rows */}
         <Link
-          to="/"
-          onClick={closeMenu}
-          className="absolute left-5 top-[34px] z-20 -translate-y-1/2 sm:left-8 lg:left-12 lg:top-1/2"
-        >
+  to="/"
+  onClick={closeMenu}
+  className="absolute left-5 top-[34px] z-20 -translate-y-1/2 sm:left-8 lg:left-10 lg:top-1/2 xl:left-14"
+>
           <img
             src={logo}
             alt="HOKU Health Care"
@@ -50,13 +50,17 @@ const Navbar = () => {
         </Link>
 
         {/* Top information row */}
-        <div className="flex min-h-[68px] items-center justify-end lg:pl-[250px]">
+        <div className="flex min-h-[68px] items-center justify-end lg:pl-[245px]">
           {/* Desktop contact information */}
-          <div className="hidden items-stretch lg:flex">
+          <div
+  className={`flex min-w-[185px] items-center justify-center px-6 py-4 text-white`}
+>
             <ContactItem
               icon={<FaPhoneAlt />}
               text="512-258-789"
               variant="blue"
+              rounded="left-bottom"
+              
             />
 
             <ContactItem
@@ -65,11 +69,12 @@ const Navbar = () => {
               variant="green"
             />
 
-            <ContactItem
-              icon={<FaMapMarkerAlt />}
-              text="7537 Wiza Valley, Missouri"
-              variant="blue"
-            />
+<ContactItem
+  icon={<FaMapMarkerAlt />}
+  text="7537 Wiza Valley, Missouri"
+  variant="blue"
+  className="min-w-[220px]"
+/>
           </div>
 
           {/* Mobile menu button */}
@@ -85,8 +90,8 @@ const Navbar = () => {
         </div>
 
         {/* Desktop navigation row */}
-        <div className="hidden min-h-[62px] items-center justify-end border-t border-[var(--border)] pl-[250px] lg:flex">
-          <nav className="flex items-center gap-9">
+        <div className="hidden min-h-[62px] items-center justify-end pl-[245px] lg:flex">
+  <nav className="flex items-center gap-6 xl:gap-9">
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
@@ -164,15 +169,28 @@ const Navbar = () => {
   );
 };
 
-const ContactItem = ({ icon, text, variant }) => {
+const ContactItem = ({
+  icon,
+  text,
+  variant,
+  rounded,
+  className = "",
+}) => {
   const backgroundClass =
     variant === "green"
       ? "bg-[var(--secondary)]"
       : "bg-[var(--primary)]";
 
+  const roundedClass =
+    rounded === "left-bottom"
+      ? "rounded-bl-2xl"
+      : rounded === "right-bottom"
+        ? "rounded-br-2xl"
+        : "";
+
   return (
     <div
-      className={`flex min-w-[175px] items-center justify-center gap-2 px-5 py-4 text-white ${backgroundClass}`}
+      className={`flex min-w-[185px] items-center justify-center gap-2 px-6 py-4 text-white ${backgroundClass} ${roundedClass} ${className}`}
     >
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-[10px]">
         {icon}
@@ -184,7 +202,6 @@ const ContactItem = ({ icon, text, variant }) => {
     </div>
   );
 };
-
 const MobileContact = ({ icon, text }) => {
   return (
     <div className="flex items-center gap-3 text-sm text-[var(--body)]">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import hero_doctor_patient from "@/assets/hero_doctor_patient.png";
+import hokudoctorpatient from "@/assets/hoku-doctor-patient.png";
 
 const Hero = () => {
   const specialists = [
@@ -10,100 +10,143 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto grid min-h-[620px] max-w-[1280px] grid-cols-1 items-center px-5 pb-24 pt-12 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:px-12 lg:pb-28 lg:pt-4">
+    <section className="relative isolate overflow-hidden bg-white">
+      <div className="mx-auto grid min-h-[720px] max-w-[1280px] grid-cols-1 px-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:px-12">
         {/* Left content */}
-        <div className="relative z-20 order-2 pt-10 lg:order-1 lg:pt-0">
-          {/* Script heading */}
-          <p className="font-script text-[42px] leading-none text-[var(--heading)] sm:text-[50px] lg:text-[58px]">
-            We take
-          </p>
+        <div className="relative z-30 order-2 flex items-center pb-32 pt-10 lg:order-1 lg:pb-36 lg:pt-0">
+          <div className="w-full">
+            {/* Script heading */}
+            <p className="font-script text-[48px] leading-[0.8] text-[var(--heading)] sm:text-[58px] lg:text-[66px]">
+              We take
+            </p>
 
-          {/* Main heading */}
-          <h1 className="mt-2 max-w-[510px] font-heading text-[44px] font-extrabold uppercase leading-[0.92] tracking-[-0.045em] text-[var(--heading)] sm:text-[58px] lg:text-[68px]">
-            Care{" "}
-            <span className="text-[var(--primary)]">
-              of your
-            </span>
-            <br />
-            health
-          </h1>
+            {/* Main heading */}
+            <h1 className="mt-3 uppercase">
+              <div className="flex flex-wrap items-end gap-x-2 leading-none">
+                <span className="font-heading text-[34px] font-black text-[var(--heading)] sm:text-[42px] lg:text-[46px]">
+                  Care
+                </span>
 
-          {/* Specialist label */}
-          <h2 className="mt-5 font-heading text-[21px] font-extrabold uppercase tracking-[-0.02em] text-[var(--primary)] sm:text-[24px]">
-            Our Specialist
-          </h2>
-
-          {/* Specialist list */}
-          <div className="mt-3 grid max-w-[390px] grid-cols-1 gap-x-7 gap-y-2 sm:grid-cols-2">
-            {specialists.map((specialist) => (
-              <div
-                key={specialist}
-                className="flex items-center gap-2 font-body text-[11px] font-semibold uppercase tracking-[0.02em] text-[var(--body)]"
-              >
-                <span className="h-[5px] w-[5px] shrink-0 rounded-full bg-[var(--primary)]" />
-                {specialist}
+                <span className="font-heading text-[45px] font-black tracking-[-0.04em] text-[var(--primary)] sm:text-[54px] lg:text-[57px]">
+                  Of Your
+                </span>
               </div>
-            ))}
-          </div>
 
-          {/* CTA */}
-          <Link
-            to="/services"
-            className="mt-7 inline-flex min-h-[44px] items-center justify-center rounded-[7px] bg-[var(--primary)] px-7 font-body text-[11px] font-bold uppercase tracking-[0.06em] text-white shadow-[var(--shadow-button)] transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--primary-hover)]"
-          >
-            Get Started
-          </Link>
+              <span className="mt-1 block font-heading text-[68px] font-black leading-[0.82] tracking-[-0.055em] text-[var(--heading)] sm:text-[84px] lg:text-[94px] xl:text-[102px]">
+                Health
+              </span>
+            </h1>
+
+            {/* Specialist heading */}
+            <h2 className="mt-6 font-heading text-[21px] font-bold uppercase tracking-[-0.02em] text-[var(--primary)] sm:text-[24px]">
+              Our Specialists
+            </h2>
+
+            {/* Specialists */}
+            <div className="mt-4 grid max-w-[440px] grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+              {specialists.map((specialist) => (
+                <div
+                  key={specialist}
+                  className="flex items-center gap-2 font-body text-[10px] font-semibold uppercase tracking-[0.02em] text-[var(--heading)]"
+                >
+                  <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-[var(--primary)]" />
+
+                  {specialist}
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <Link
+              to="/register"
+              className="mt-8 inline-flex rounded-[7px] bg-[var(--primary)] px-6 py-3 text-[12px] font-bold uppercase tracking-[0.04em] text-white shadow-[0_6px_15px_rgba(30,99,198,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[var(--primary-hover)]"
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
 
         {/* Right visual */}
-        <div className="relative order-1 min-h-[370px] lg:order-2 lg:min-h-[570px]">
-          {/* Soft background */}
-          <div className="absolute inset-x-0 top-2 h-[88%] overflow-hidden rounded-tl-[10px] bg-gradient-to-br from-[#f7f8f7] via-[#eef1ef] to-[#dfe6e2] lg:left-5">
-            {/* Health Service label */}
-            <div className="absolute left-1/2 top-7 z-20 w-[78%] -translate-x-1/2 rounded-[10px] border border-white/70 bg-white/30 px-5 py-4 text-center backdrop-blur-[2px]">
-              <p className="font-heading text-[13px] font-semibold uppercase tracking-[0.55em] text-[var(--primary)] sm:text-[15px]">
+        <div className="relative order-1 min-h-[480px] sm:min-h-[570px] lg:order-2 lg:min-h-[720px]">
+          {/* Background panel */}
+          <div
+            className="absolute inset-x-0 bottom-0 top-0 overflow-hidden rounded-tl-[26px] rounded-br-[150px]
+                       bg-gradient-to-br from-[#F7F9FC] via-[#EFF2F3] to-[#E4E7E5]
+                       lg:left-2 lg:right-[-80px]"
+          >
+            {/* Subtle panel lighting */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(255,255,255,0.95),transparent_38%)]" />
+
+            {/* Blue vertical accent */}
+            <div className="absolute left-0 top-0 h-full w-[7px] bg-gradient-to-b from-[var(--primary)] via-[#77A3D7] to-transparent" />
+
+            {/* Health service badge */}
+            <div
+              className="absolute left-[9%] right-[-20px] top-6 z-30 flex h-[60px] items-center justify-center
+                         rounded-l-[13px] border border-white/90 bg-white/25
+                         shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]
+                         backdrop-blur-[2px]
+                         sm:top-8 lg:left-[10%] lg:top-11"
+            >
+              <p className="font-heading text-[14px] font-bold uppercase tracking-[0.55em] text-[var(--primary)] sm:text-[17px] lg:text-[19px]">
                 Health Service
               </p>
             </div>
 
-            {/* Subtle vertical accent */}
-            <div className="absolute left-0 top-0 h-full w-[6px] bg-gradient-to-b from-[#3c5b7e] via-[#8293a6] to-transparent opacity-70" />
+            {/* Decorative soft shapes */}
+            <div className="absolute bottom-[15%] left-[10%] h-52 w-52 rounded-full bg-white/30 blur-3xl" />
+            <div className="absolute right-[5%] top-[20%] h-64 w-64 rounded-full bg-white/35 blur-3xl" />
           </div>
 
-          {/* Hero image */}
+          {/* Doctor and patient */}
           <img
-            src={hero_doctor_patient}
-            alt="Healthcare professional checking a senior patient"
-            className="absolute bottom-0 left-1/2 z-10 h-[360px] w-full max-w-[610px] -translate-x-1/2 object-contain object-bottom sm:h-[440px] lg:left-[52%] lg:h-[535px]"
+            src={hokudoctorpatient}
+            alt="Doctor examining an elderly patient"
+            className="absolute bottom-[38px] left-[48%] z-20 h-auto w-[112%] max-w-none
+                       -translate-x-1/2 object-contain object-bottom
+                       sm:bottom-[45px] sm:w-[108%]
+                       lg:bottom-[35px] lg:left-[52%] lg:w-[120%]
+                       xl:left-[51%] xl:w-[116%]"
           />
+
+          {/* Soft transition into left section */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-[8%] bg-gradient-to-r from-white/45 to-transparent" />
         </div>
       </div>
 
-      {/* Curved wave */}
-      <div className="pointer-events-none absolute bottom-0 left-0 z-30 w-full">
+      {/* Curved waves */}
+      <div className="pointer-events-none absolute bottom-0 left-0 z-40 w-full">
         <svg
-          viewBox="0 0 1440 145"
+          viewBox="0 0 1440 150"
           preserveAspectRatio="none"
-          className="block h-[90px] w-full sm:h-[105px] lg:h-[125px]"
+          className="block h-[90px] w-full sm:h-[108px] lg:h-[125px]"
           aria-hidden="true"
         >
-          {/* White cover */}
-          <path
-            d="M0,45 C300,110 700,132 1040,76 C1210,47 1335,20 1440,5 L1440,145 L0,145 Z"
-            fill="#ffffff"
-          />
-
           {/* Green wave */}
           <path
-            d="M0,36 C320,110 690,124 1030,69 C1215,39 1338,10 1440,0 L1440,25 C1315,44 1192,72 1030,98 C675,154 300,129 0,57 Z"
+            d="M0,55 C330,121 695,140 1035,84 C1210,55 1335,23 1440,8
+               L1440,39
+               C1310,58 1190,88 1035,113
+               C690,168 310,145 0,76 Z"
             fill="var(--secondary)"
           />
 
           {/* Blue wave */}
           <path
-            d="M0,29 C335,94 690,110 1025,58 C1197,31 1325,6 1440,0 L1440,13 C1310,33 1185,59 1028,84 C688,138 318,118 0,45 Z"
+            d="M0,48 C335,108 695,126 1028,72
+               C1200,44 1328,15 1440,3
+               L1440,22
+               C1310,41 1188,69 1030,95
+               C690,150 315,129 0,64 Z"
             fill="var(--primary)"
+          />
+
+          {/* White foreground */}
+          <path
+            d="M0,68 C320,136 695,156 1035,102
+               C1215,73 1335,44 1440,28
+               L1440,150 L0,150 Z"
+            fill="#ffffff"
           />
         </svg>
       </div>

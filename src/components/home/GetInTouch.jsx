@@ -5,28 +5,70 @@ const GetInTouch = () => {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+      className="relative overflow-hidden bg-[#FAFAFA] px-5 pb-0 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24"
     >
-      {/* Decorative shapes */}
-      <div className="pointer-events-none absolute -bottom-20 right-0 h-40 w-[55%] -rotate-6 bg-[#1268AE]" />
-      <div className="pointer-events-none absolute -bottom-8 right-0 h-7 w-[58%] -rotate-6 bg-[#9CCB39]" />
+      {/* Bottom dark background */}
+      <div
+className="
+absolute
+bottom-0
+inset-x-0
+h-[185px]
+bg-[#1A1A1A]
+"
+      style={{
+        clipPath:
+        "polygon(0 27%,68% 0,100% 27%,100% 100%,0 100%)"
+        }} 
+      />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="overflow-hidden rounded-[28px] bg-white shadow-[0_14px_45px_rgba(0,0,0,0.15)]">
-          <div className="grid lg:grid-cols-2">
+      {/* Decorative diagonal ribbons */}
+      <div
+className="
+absolute
+bottom-[164px]
+left-0
+w-full
+h-[8px]
+bg-[#9CCB39]
+"
+style={{
+  clipPath:
+  "polygon(0 78%,68% 0,100% 78%,100% 100%,0 100%)"
+  }}
+/>
+
+<div
+className="
+absolute
+bottom-[150px]
+left-0
+w-full
+h-[16px]
+bg-[#1268AE]
+"
+style={{
+  clipPath:
+  "polygon(0 76%,68% 0,100% 76%,100% 100%,0 100%)"
+  }}
+/>
+
+      <div className="relative z-10 mx-auto max-w-[1120px]">
+        <div className="overflow-hidden rounded-[28px] bg-white shadow-[0_18px_55px_rgba(15,23,42,0.18)]">
+          <div className="grid min-h-[350px] lg:grid-cols-[0.95fr_1.05fr]">
             {/* Left image */}
-            <div className="relative min-h-[360px] sm:min-h-[450px] lg:min-h-[570px]">
+            <div className="relative min-h-[320px] sm:min-h-[400px] lg:min-h-[350px]">
               <img
                 src={contactImage}
-                alt="Healthcare professional assisting a patient online"
-                className="absolute inset-0 h-full w-full object-cover"
+                alt="Healthcare professional assisting a patient"
+                className="absolute inset-0 h-full w-full object-cover object-center"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A4777]/20 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/10" />
             </div>
 
-            {/* Right reusable form */}
-            <div className="flex items-center px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+            {/* Right form */}
+            <div className="flex items-center bg-white px-6 py-10 sm:px-10 lg:px-12 lg:py-8 xl:px-16">
               <ContactForm />
             </div>
           </div>
