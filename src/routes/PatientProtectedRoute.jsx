@@ -7,9 +7,10 @@ import {
 const PatientProtectedRoute = () => {
   const location = useLocation();
 
-  const token = localStorage.getItem(
-    "patient-token"
-  );
+  const token =
+    localStorage.getItem(
+      "patient-token"
+    );
 
   if (!token) {
     return (
@@ -17,7 +18,8 @@ const PatientProtectedRoute = () => {
         to="/patient/login"
         replace
         state={{
-          from: location.pathname,
+          from:
+            location.pathname,
         }}
       />
     );

@@ -19,7 +19,10 @@ import {
 
 import { motion } from "framer-motion";
 
-import { Link } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 import { toast } from "react-toastify";
 
@@ -42,7 +45,25 @@ function getErrorMessage(
   );
 }
 
+function createPatientName(email) {
+  const emailName =
+    email.split("@")[0] || "Patient";
+
+  return emailName
+    .replace(/[._-]+/g, " ")
+    .split(" ")
+    .filter(Boolean)
+    .map(
+      (word) =>
+        word.charAt(0).toUpperCase() +
+        word.slice(1)
+    )
+    .join(" ");
+}
+
 export default function PatientLogin() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -78,9 +99,14 @@ export default function PatientLogin() {
   ) => {
     event.preventDefault();
 
-    const email = form.email.trim();
+    const email = form.email
+      .trim()
+      .toLowerCase();
 
-    if (!email || !form.password.trim()) {
+    const password =
+      form.password.trim();
+
+    if (!email || !password) {
       const message =
         "Please enter your email and password.";
 
@@ -94,19 +120,52 @@ export default function PatientLogin() {
       setLoading(true);
       setError("");
 
-      // Replace this with the patient login API later.
-      // await loginPatient({
-      //   email,
-      //   password: form.password,
-      // });
+      /*
+       * TEMPORARY LOGIN
+       *
+       * This creates a local patient session
+       * while the backend login API is not connected.
+       */
+
+      await new Promise((resolve) =>
+        setTimeout(resolve, 600)
+      );
+
+      const patientToken =
+        "hoku-demo-patient-token";
+
+      const patientUser = {
+        id: "patient-demo-001",
+        name: createPatientName(email),
+        fullName:
+          createPatientName(email),
+        email,
+        role: "patient",
+      };
+
+      localStorage.setItem(
+        "patient-token",
+        patientToken
+      );
+
+      localStorage.setItem(
+        "patient-user",
+        JSON.stringify(patientUser)
+      );
 
       toast.success(
         "Patient login successful."
       );
-    } catch (loginError) {
-      const message = getErrorMessage(
-        loginError
+
+      navigate(
+        "/patient/dashboard",
+        {
+          replace: true,
+        }
       );
+    } catch (loginError) {
+      const message =
+        getErrorMessage(loginError);
 
       setError(message);
       toast.error(message);
@@ -122,7 +181,8 @@ export default function PatientLogin() {
         aria-hidden="true"
         className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full opacity-10 blur-3xl"
         style={{
-          backgroundColor: HOKU_PRIMARY,
+          backgroundColor:
+            HOKU_PRIMARY,
         }}
       />
 
@@ -212,9 +272,10 @@ export default function PatientLogin() {
 
               <p className="mt-5 max-w-sm text-sm leading-7 text-white/75">
                 Book appointments, connect
-                with healthcare professionals,
-                manage reminders, and access
-                your health services from one
+                with healthcare
+                professionals, manage
+                reminders, and access your
+                health services from one
                 secure patient portal.
               </p>
             </div>
@@ -247,7 +308,8 @@ export default function PatientLogin() {
                       style={{
                         backgroundColor:
                           "rgba(183, 207, 53, 0.2)",
-                        color: "#DDF078",
+                        color:
+                          "#DDF078",
                       }}
                     >
                       <Icon className="h-4 w-4" />
@@ -267,7 +329,9 @@ export default function PatientLogin() {
               Secure patient access
             </span>
 
-            <span>HOKU Health Care</span>
+            <span>
+              HOKU Health Care
+            </span>
           </div>
         </section>
 
@@ -303,7 +367,8 @@ export default function PatientLogin() {
                   <p
                     className="text-[10px] font-bold uppercase tracking-[0.16em]"
                     style={{
-                      color: HOKU_PRIMARY,
+                      color:
+                        HOKU_PRIMARY,
                     }}
                   >
                     Patient Portal
@@ -337,9 +402,10 @@ export default function PatientLogin() {
               </h2>
 
               <p className="mt-2 text-sm leading-6 text-slate-500">
-                Sign in to book appointments
-                and manage your HOKU
-                healthcare services.
+                Sign in to book
+                appointments and manage
+                your HOKU healthcare
+                services.
               </p>
             </header>
 
@@ -378,7 +444,9 @@ export default function PatientLogin() {
                     autoCapitalize="none"
                     spellCheck={false}
                     value={form.email}
-                    onChange={handleChange}
+                    onChange={
+                      handleChange
+                    }
                     disabled={loading}
                     placeholder="patient@hokuhealth.com"
                     required
@@ -397,7 +465,7 @@ export default function PatientLogin() {
                   </label>
 
                   <Link
-                    to="/patient/forgot-password"
+                    to="/forgot-password"
                     className="text-xs font-semibold text-[#1E63C6] transition hover:text-[#174FA0] hover:underline"
                   >
                     Forgot password?
@@ -416,8 +484,12 @@ export default function PatientLogin() {
                     }
                     name="password"
                     autoComplete="current-password"
-                    value={form.password}
-                    onChange={handleChange}
+                    value={
+                      form.password
+                    }
+                    onChange={
+                      handleChange
+                    }
                     disabled={loading}
                     placeholder="Enter your password"
                     required
@@ -428,7 +500,8 @@ export default function PatientLogin() {
                     type="button"
                     onClick={() =>
                       setShowPassword(
-                        (current) => !current
+                        (current) =>
+                          !current
                       )
                     }
                     disabled={loading}
@@ -472,7 +545,8 @@ export default function PatientLogin() {
                   <>
                     <ShieldCheck className="h-4 w-4" />
 
-                    Sign in to Patient Portal
+                    Sign in to Patient
+                    Portal
                   </>
                 )}
               </button>
@@ -505,7 +579,8 @@ export default function PatientLogin() {
 
                 <div>
                   <p className="text-xs font-bold text-slate-700">
-                    Healthcare professional?
+                    Healthcare
+                    professional?
                   </p>
 
                   <p className="mt-1 text-xs leading-5 text-slate-500">
